@@ -1,6 +1,7 @@
 
 
 $mainPath = split-path -parent $MyInvocation.MyCommand.Path
+Write-Host "Path $mainPath"
 $children = Get-ChildItem $mainPath
 $reportTypes = @('Cohorts', 'Workbooks')
 $templateExtensions = @('cohort', 'workbook')
