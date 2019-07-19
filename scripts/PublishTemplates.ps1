@@ -163,6 +163,6 @@ Write-Host "Publishing..."
 
 $BlobName = "CommunityTemplates.json"
 Set-AzStorageBlobContent -File $localFile -Container $ContainerName `
-    -Blob $BlobName -Context $ctx
+    -Blob $BlobName -Context $ctx -Force
 
 Write-Host "Done publishing templates"
