@@ -1,7 +1,6 @@
 
 
 $mainPath = split-path -parent $MyInvocation.MyCommand.Path
-Write-Host "Path $mainPath"
 $children = Get-ChildItem $mainPath
 $reportTypes = @('Cohorts', 'Workbooks')
 $templateExtensions = @('cohort', 'workbook')
@@ -136,7 +135,7 @@ Write-Host "Done building json"
 
 Write-Host "Starting to publish"
 
-$localFile = "C:\Users\paruizfi\Desktop\templatesBlob.json"
+$localFile = "$mainPath/temp.json"
 $payload | ConvertTo-Json -depth 10 | Out-File $localFile
 
 #Upload to storage
