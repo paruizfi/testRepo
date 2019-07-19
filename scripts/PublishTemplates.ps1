@@ -143,7 +143,7 @@ Write-Host "Done building json"
 
 Write-Host "Creating artifacts"
 
-$payload | ConvertTo-Json -depth 10 | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY
+$payload | ConvertTo-Json -depth 10 | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY"/myPath"
 
 $writtenPayload = Get-Content $localFile | Out-String 
 
