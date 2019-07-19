@@ -145,10 +145,9 @@ $StorageAccountKey = "ELFwFkA46yDUDUOqOxfmy1bWtpLuqYYzh6mdzRwTXns/zzQZYqPHF96CKo
 $ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
     -StorageAccountKey $StorageAccountKey
 
-$ContainerName = "GithubDrop"
+$ContainerName = "test"
 
 Write-Host "Publishing..."
-
 
 $BlobName = "CommunityTemplates.json"
 Set-AzStorageBlobContent -File $localFile -Container $ContainerName `
