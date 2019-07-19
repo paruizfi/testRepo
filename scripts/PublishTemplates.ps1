@@ -141,15 +141,11 @@ foreach ($report in $reports) {
 
 Write-Host "Done building json"
 
-Write-Host "Starting to publish"
+Write-Host "Creating artifacts"
 
-$localFile = "$mainPath/temp.json"
-$payload | ConvertTo-Json -depth 10 | Out-File $localFile
+$payload | ConvertTo-Json -depth 10 | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY
 
 $writtenPayload = Get-Content $localFile | Out-String 
-$writtenPayload = $writtenPayload.SubString(0,200)
-
-Write-Host "Wrriten payload $writtenPayload"
 
 #Upload to storage
 $StorageAccountName = "geniekbs"

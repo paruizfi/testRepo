@@ -16,3 +16,7 @@ steps:
     ScriptPath: 'scripts/PublishTemplates.ps1'
     azurePowerShellVersion: 'LatestVersion'
     ScriptArguments: '$(StorageAccountKey)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: processedTemplates
