@@ -1,10 +1,11 @@
 
 
 Param (
+    [Parameter(Mandatory=$true)]
     [string]$StorageAccountKey = $env:StorageAccountKey
 )
 
-Write-Host "Storage Account $StorageAccountKey asdf"
+Write-Host "Storage Account $StorageAccountKey"
 
 $mainPath = split-path -parent $MyInvocation.MyCommand.Path
 $children = Get-ChildItem $mainPath
