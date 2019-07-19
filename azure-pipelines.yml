@@ -9,3 +9,9 @@ steps:
     versionSpec: '8.x'
 - script: npm install
 - script: npm test
+- task: AzurePowerShell@4
+  inputs:
+    azureSubscription: 'App Insights DevExp(8980832b-9589-4ac2-b322-a6ae6a97f02b)'
+    ScriptType: 'FilePath'
+    ScriptPath: 'scripts/PublishTemplates.ps1'
+    azurePowerShellVersion: 'LatestVersion'
