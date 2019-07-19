@@ -141,9 +141,11 @@ foreach ($report in $reports) {
 
 Write-Host "Done building json"
 
-Write-Host "Creating artifacts"
+$artifactsPath =  "$env:BUILD_ARTIFACTSTAGINGDIRECTORY/myPath"
 
-$payload | ConvertTo-Json -depth 10 | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY"/myPath"
+Write-Host "Copying artifacts to $artifactsPath "
+
+$payload | ConvertTo-Json -depth 10 | Out-File $artifactsPath
 
 $writtenPayload = Get-Content $localFile | Out-String 
 
