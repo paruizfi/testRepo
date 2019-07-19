@@ -5,9 +5,10 @@ Param (
     [string]$StorageAccountKey
 )
 
-Write-Host "Storage Account $StorageAccountKey"
-
 $mainPath = split-path -parent $MyInvocation.MyCommand.Path
+Write-Host "Storage Account $mainPath"
+
+
 $children = Get-ChildItem $mainPath
 $reportTypes = @('Cohorts', 'Workbooks')
 $templateExtensions = @('cohort', 'workbook')
@@ -144,6 +145,10 @@ Write-Host "Starting to publish"
 
 $localFile = "$mainPath/temp.json"
 $payload | ConvertTo-Json -depth 10 | Out-File $localFile
+
+$writtenPayload = Get-Content $localFile | Out-String
+
+Write-Host "Starting to writtenPayload"
 
 #Upload to storage
 $StorageAccountName = "geniekbs"
