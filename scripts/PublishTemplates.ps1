@@ -141,7 +141,7 @@ foreach ($report in $reports) {
 
 Write-Host "Done building json"
 
-Write-Host "Copying artifacts to $artifactsPath "
+Write-Host "Copying artifacts"
 
 $artifactContent = $payload | ConvertTo-Json -depth 10
 
