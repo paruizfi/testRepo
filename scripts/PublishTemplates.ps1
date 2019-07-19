@@ -5,11 +5,11 @@ Param (
     [string]$StorageAccountKey
 )
 
-$mainPath = split-path -parent $MyInvocation.MyCommand.Path
-Write-Host "Storage Account $mainPath"
+$mainPath = Split-Path (split-path -parent $MyInvocation.MyCommand.Path) -Parent
 
+Write-Host "Using Folder $mainPath"
 
-$children = Get-ChildItem $mainPath
+$reports = Get-ChildItem $mainPath
 $reportTypes = @('Cohorts', 'Workbooks')
 $templateExtensions = @('cohort', 'workbook')
 $defaultLanguage = 'en-us'
@@ -73,7 +73,7 @@ Function GetTemplateContainerData() {
 
 Write-Host "Building template's json"
 
-foreach ($report in $children) {
+foreach ($report in $reports) {
     $reportType = $report.Name
 
     if ($reportTypes.Contains($reportType)) {
@@ -146,9 +146,10 @@ Write-Host "Starting to publish"
 $localFile = "$mainPath/temp.json"
 $payload | ConvertTo-Json -depth 10 | Out-File $localFile
 
-$writtenPayload = Get-Content $localFile | Out-String
+$writtenPayload = Get-Content $localFile | Out-String 
+$writtenPayload = $writtenPayload.SubString(0,200)
 
-Write-Host "Starting to writtenPayload"
+Write-Host "Wrriten payload $writtenPayload"
 
 #Upload to storage
 $StorageAccountName = "geniekbs"
@@ -158,7 +159,7 @@ $ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
 
 $ContainerName = "test"
 
-Write-Host "Publishing... $ctx"
+Write-Host "Publishing..."
 
 $BlobName = "CommunityTemplates.json"
 Set-AzStorageBlobContent -File $localFile -Container $ContainerName `
