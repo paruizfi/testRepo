@@ -4,7 +4,7 @@ Param (
     [string]$StorageAccountKey = $env:StorageAccountKey
 )
 
-Write-Host "Storage Account key  $StorageAccountKey"
+Write-Host "Storage Account $StorageAccountKey asdf"
 
 $mainPath = split-path -parent $MyInvocation.MyCommand.Path
 $children = Get-ChildItem $mainPath
@@ -152,7 +152,7 @@ $ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
 
 $ContainerName = "test"
 
-Write-Host "Publishing..."
+Write-Host "Publishing... $ctx"
 
 $BlobName = "CommunityTemplates.json"
 Set-AzStorageBlobContent -File $localFile -Container $ContainerName `
