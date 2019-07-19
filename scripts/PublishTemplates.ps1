@@ -133,19 +133,6 @@ foreach ($report in $children) {
 
 Write-Host "Done building json"
 
-
-Write-Host "Logging in"
-
-$azureAplicationId ="01d39962-a185-41f4-8272-20314a9a4945"
-$azureTenantId= "72f988bf-86f1-41af-91ab-2d7cd011db47"
-$azurePassword = ConvertTo-SecureString $($env:AzureAppIDPassword) -AsPlainText -Force
-$psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
-Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal 
-
-
-Write-Host "Pass $($env:AzureAppIDPassword)"
-Write-Host "Logged in"
-
 Write-Host "Starting to publish"
 
 $localFile = "$mainPath/temp.json"
@@ -153,7 +140,9 @@ $payload | ConvertTo-Json -depth 10 | Out-File $localFile
 
 #Upload to storage
 $StorageAccountName = "geniekbs"
-$StorageAccountKey =  $($env:StorageAccountKey) 
+$StorageAccountKey =  $(StorageAccountKey) 
+
+Write-Host "Storage Account key  $StorageAccountKey"
 
 $ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
     -StorageAccountKey $StorageAccountKey
