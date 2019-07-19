@@ -141,26 +141,27 @@ foreach ($report in $reports) {
 
 Write-Host "Done building json"
 
-$artifactsPath =  "$env:BUILD_ARTIFACTSTAGINGDIRECTORY/myPath"
-
 Write-Host "Copying artifacts to $artifactsPath "
 
-$payload | ConvertTo-Json -depth 10 | Out-File $artifactsPath
+$artifactContent = $payload | ConvertTo-Json -depth 10
 
-$writtenPayload = Get-Content $localFile | Out-String 
+New-Item -Path $env:BUILD_ARTIFACTSTAGINGDIRECTORY -Name "templates.json" -ItemType "file" -Value $artifactContent
 
-#Upload to storage
-$StorageAccountName = "geniekbs"
 
-$ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
-    -StorageAccountKey $StorageAccountKey
+# $writtenPayload = Get-Content $localFile | Out-String 
 
-$ContainerName = "test"
+# #Upload to storage
+# $StorageAccountName = "geniekbs"
 
-Write-Host "Publishing..."
+# $ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
+#     -StorageAccountKey $StorageAccountKey
 
-$BlobName = "CommunityTemplates.json"
-Set-AzStorageBlobContent -File $localFile -Container $ContainerName `
-    -Blob $BlobName -Context $ctx -Force
+# $ContainerName = "test"
 
-Write-Host "Done publishing templates"
+# Write-Host "Publishing..."
+
+# $BlobName = "CommunityTemplates.json"
+# Set-AzStorageBlobContent -File $localFile -Container $ContainerName `
+#     -Blob $BlobName -Context $ctx -Force
+
+# Write-Host "Done publishing templates"
