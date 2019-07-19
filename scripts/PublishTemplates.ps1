@@ -1,5 +1,11 @@
 
 
+Param (
+    [string]$StorageAccountKey = $env:StorageAccountKey
+)
+
+Write-Host "Storage Account key  $StorageAccountKey"
+
 $mainPath = split-path -parent $MyInvocation.MyCommand.Path
 $children = Get-ChildItem $mainPath
 $reportTypes = @('Cohorts', 'Workbooks')
@@ -140,9 +146,6 @@ $payload | ConvertTo-Json -depth 10 | Out-File $localFile
 
 #Upload to storage
 $StorageAccountName = "geniekbs"
-$StorageAccountKey =  $(StorageAccountKey) 
-
-Write-Host "Storage Account key  $StorageAccountKey"
 
 $ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
     -StorageAccountKey $StorageAccountKey
