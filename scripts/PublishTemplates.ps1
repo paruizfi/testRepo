@@ -64,6 +64,8 @@ Function GetTemplateContainerData() {
 #                     |- Apdex.workbook        
 # -------------------------
 
+Write-Host "Building template's json"
+
 foreach ($report in $children) {
     $reportType = $report.Name
 
@@ -130,6 +132,10 @@ foreach ($report in $children) {
     }
 }
 
+Write-Host "Done building json"
+
+Write-Host "Starting to publish"
+
 $localFile = "C:\Users\paruizfi\Desktop\templatesBlob.json"
 $payload | ConvertTo-Json -depth 10 | Out-File $localFile
 
@@ -142,6 +148,11 @@ $ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
 
 $ContainerName = "GithubDrop"
 
+Write-Host "Publishing..."
+
+
 $BlobName = "CommunityTemplates.json"
 Set-AzStorageBlobContent -File $localFile -Container $ContainerName `
     -Blob $BlobName -Context $ctx
+
+Write-Host "Done publishing templates"
