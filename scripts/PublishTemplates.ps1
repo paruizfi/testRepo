@@ -2,7 +2,7 @@
 
 Param (
     [Parameter(Mandatory=$true)]
-    [string]$StorageAccountKey = $env:StorageAccountK
+    [string]$StorageAccountKey
 )
 
 Write-Host "Storage Account $StorageAccountKey"
