@@ -15,4 +15,4 @@ steps:
     ScriptType: 'FilePath'
     ScriptPath: 'scripts/PublishTemplates.ps1'
     azurePowerShellVersion: 'LatestVersion'
-    ScriptArguments: 'myKey2'
+    ScriptArguments: '$(StorageAccountKey)'
