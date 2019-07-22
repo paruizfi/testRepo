@@ -1,10 +1,4 @@
 
-
-Param (
-    [Parameter(Mandatory=$true)]
-    [string]$StorageAccountKey
-)
-
 $mainPath = Split-Path (split-path -parent $MyInvocation.MyCommand.Path) -Parent
 
 Write-Host "Using Folder $mainPath"
@@ -146,22 +140,3 @@ Write-Host "Copying artifacts"
 $artifactContent = $payload | ConvertTo-Json -depth 10
 
 New-Item -Path $env:BUILD_ARTIFACTSTAGINGDIRECTORY -Name "templates.json" -ItemType "file" -Value $artifactContent
-
-
-# $writtenPayload = Get-Content $localFile | Out-String 
-
-# #Upload to storage
-# $StorageAccountName = "geniekbs"
-
-# $ctx = New-AzStorageContext -StorageAccountName $StorageAccountName `
-#     -StorageAccountKey $StorageAccountKey
-
-# $ContainerName = "test"
-
-# Write-Host "Publishing..."
-
-# $BlobName = "CommunityTemplates.json"
-# Set-AzStorageBlobContent -File $localFile -Container $ContainerName `
-#     -Blob $BlobName -Context $ctx -Force
-
-# Write-Host "Done publishing templates"
